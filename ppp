@@ -1,0 +1,1587 @@
+[
+{
+"dns": {
+"tag": "dns-module",
+"servers": [
+{
+"address": "77.88.8.8",
+"domains": [
+"domain:ozon.com",
+"domain:ozon.ru",
+"domain:wildberries.ru",
+"domain:wb.ru",
+"domain:avito.ru",
+"domain:vk.com",
+"domain:yandex.ru",
+"domain:yandex.net",
+"domain:sber.ru",
+"domain:sberbank.ru",
+"domain:gosuslugi.ru",
+"domain:mail.ru",
+"domain:ok.ru",
+"domain:rutube.ru",
+"domain:tinkoff.ru",
+"domain:raiffeisen.ru",
+"domain:alfa-bank.ru",
+"domain:mvideo.ru",
+"domain:dns-shop.ru",
+"domain:eldorado.ru",
+"domain:citilink.ru",
+"domain:kaspersky.ru",
+"domain:mos.ru",
+"domain:rbc.ru",
+"domain:gazprombank.ru",
+"domain:vtb.ru",
+"domain:sbp.ru",
+"domain:psbank.ru",
+"domain:rosbank.ru",
+"domain:mkb.ru",
+"domain:sovcombank.ru",
+"domain:homecredit.ru",
+"domain:pochtabank.ru",
+"domain:qiwi.com",
+"domain:yoomoney.ru",
+"domain:nalog.ru",
+"domain:cbr.ru",
+"domain:pochta.ru",
+"domain:gibdd.ru",
+"domain:rosreestr.ru",
+"domain:mvd.ru",
+"domain:fns.ru",
+"domain:mts.ru",
+"domain:beeline.ru",
+"domain:megafon.ru",
+"domain:tele2.ru",
+"domain:yota.ru",
+"domain:lamoda.ru",
+"domain:sbermegamarket.ru",
+"domain:samokat.ru",
+"domain:cdek.ru",
+"domain:boxberry.ru",
+"domain:kinopoisk.ru",
+"domain:ivi.ru",
+"domain:okko.tv",
+"domain:more.tv",
+"domain:start.ru",
+"domain:2gis.ru",
+"domain:rzd.ru",
+"domain:aeroflot.ru",
+"domain:s7.ru"
+]
+},
+"1.1.1.1",
+"1.0.0.1",
+"8.8.8.8"
+],
+"disableCache": false,
+"queryStrategy": "UseIPv4"
+},
+"log": {
+"loglevel": "warning"
+},
+"policy": {
+"levels": {
+"0": {
+"connIdle": 300,
+"handshake": 4,
+"uplinkOnly": 1,
+"downlinkOnly": 1
+}
+},
+"system": {
+"statsOutboundUplink": false,
+"statsOutboundDownlink": false
+}
+},
+"routing": {
+"rules": [
+{
+"ip": [
+"77.88.8.8",
+"77.88.8.1"
+],
+"type": "field",
+"inboundTag": [
+"dns-module"
+],
+"outboundTag": "direct"
+},
+{
+"type": "field",
+"inboundTag": [
+"dns-module"
+],
+"balancerTag": "MAIN_BALANCER"
+},
+{
+"port": 53,
+"type": "field",
+"outboundTag": "dns-out"
+},
+{
+"type": "field",
+"protocol": [
+"bittorrent"
+],
+"outboundTag": "direct"
+},
+{
+"ip": [
+"10.0.0.0/8",
+"100.64.0.0/10",
+"127.0.0.0/8",
+"169.254.0.0/16",
+"172.16.0.0/12",
+"192.168.0.0/16",
+"::1/128",
+"fc00::/7",
+"fe80::/10"
+],
+"type": "field",
+"outboundTag": "direct"
+},
+{
+"type": "field",
+"domain": [
+"domain:ozon.com",
+"domain:ozon.ru",
+"domain:wildberries.ru",
+"domain:wb.ru",
+"domain:avito.ru",
+"domain:vk.com",
+"domain:yandex.ru",
+"domain:yandex.net",
+"domain:sber.ru",
+"domain:sberbank.ru",
+"domain:gosuslugi.ru",
+"domain:mail.ru",
+"domain:ok.ru",
+"domain:rutube.ru",
+"domain:tinkoff.ru",
+"domain:raiffeisen.ru",
+"domain:alfa-bank.ru",
+"domain:mvideo.ru",
+"domain:dns-shop.ru",
+"domain:eldorado.ru",
+"domain:citilink.ru",
+"domain:kaspersky.ru",
+"domain:mos.ru",
+"domain:rbc.ru",
+"domain:gazprombank.ru",
+"domain:vtb.ru",
+"domain:sbp.ru",
+"domain:psbank.ru",
+"domain:rosbank.ru",
+"domain:mkb.ru",
+"domain:homecredit.ru",
+"domain:pochtabank.ru",
+"domain:qiwi.com",
+"domain:yoomoney.ru",
+"domain:nalog.ru",
+"domain:cbr.ru",
+"domain:pochta.ru",
+"domain:gibdd.ru",
+"domain:rosreestr.ru",
+"domain:mvd.ru",
+"domain:fns.ru",
+"domain:mts.ru",
+"domain:beeline.ru",
+"domain:megafon.ru",
+"domain:tele2.ru",
+"domain:yota.ru",
+"domain:lamoda.ru",
+"domain:sbermegamarket.ru",
+"domain:samokat.ru",
+"domain:cdek.ru",
+"domain:boxberry.ru",
+"domain:kinopoisk.ru",
+"domain:ivi.ru",
+"domain:okko.tv",
+"domain:more.tv",
+"domain:start.ru",
+"domain:2gis.ru",
+"domain:rzd.ru",
+"domain:aeroflot.ru",
+"domain:s7.ru"
+],
+"outboundTag": "direct"
+},
+{
+"type": "field",
+"network": "tcp,udp",
+"balancerTag": "MAIN_BALANCER"
+}
+],
+"balancers": [
+{
+"tag": "MAIN_BALANCER",
+"selector": [
+"proxy",
+"proxy-2",
+"proxy-3",
+"proxy-4",
+"proxy-5",
+"proxy-6",
+"proxy-7",
+"proxy-8"
+],
+"strategy": {
+"type": "leastLoad",
+"settings": {
+"maxRTT": "2s",
+"expected": 3
+}
+},
+"fallbackTag": "block"
+}
+],
+"domainMatcher": "hybrid",
+"domainStrategy": "IPIfNonMatch"
+},
+"inbounds": [
+{
+"tag": "socks",
+"port": 10808,
+"listen": "127.0.0.1",
+"protocol": "socks",
+"settings": {
+"udp": true,
+"auth": "noauth"
+},
+"sniffing": {
+"enabled": true,
+"routeOnly": true,
+"destOverride": [
+"http",
+"tls",
+"quic"
+]
+}
+},
+{
+"tag": "http",
+"port": 10809,
+"listen": "127.0.0.1",
+"protocol": "http",
+"settings": {
+"allowTransparent": false
+},
+"sniffing": {
+"enabled": true,
+"routeOnly": true,
+"destOverride": [
+"http",
+"tls",
+"quic"
+]
+}
+}
+],
+"outbounds": [
+{
+"tag": "proxy",
+"protocol": "vless",
+"mux": {
+"enabled": false,
+"concurrency": -1,
+"xudpConcurrency": 8,
+"xudpProxyUDP443": ""
+},
+"settings": {
+"vnext": [
+{
+"address": "www.codex2api.com",
+"port": 443,
+"users": [
+{
+"id": "30e52776-55ac-3cb4-8d36-e2910f07e2c3",
+"encryption": "none",
+"flow": "",
+"level": 8,
+"security": "auto"
+}
+]
+}
+]
+},
+"streamSettings": {
+"network": "xhttp",
+"security": "tls",
+"tlsSettings": {
+"serverName": "7fe50937s2316.fuhuovps.xyz",
+"fingerprint": "chrome",
+"show": false,
+"alpn": [
+"h2",
+"http/1.1"
+]
+},
+"xhttpSettings": {
+"path": "/b34b667489c867378f1544355647ecfa",
+"host": "7fe50937s2316.fuhuovps.xyz",
+"mode": "auto"
+}
+}
+},
+{
+"tag": "proxy-2",
+"protocol": "vless",
+"mux": {
+"enabled": false,
+"concurrency": -1,
+"xudpConcurrency": 8,
+"xudpProxyUDP443": ""
+},
+"settings": {
+"vnext": [
+{
+"address": "fr.song69.fun",
+"port": 443,
+"users": [
+{
+"id": "92b79c22-f68b-4713-8b21-52f264cb92f5",
+"encryption": "none",
+"flow": "",
+"level": 8,
+"security": "auto"
+}
+]
+}
+]
+},
+"streamSettings": {
+"network": "xhttp",
+"security": "tls",
+"tlsSettings": {
+"serverName": "fr.song69.fun",
+"fingerprint": "edge",
+"show": false,
+"alpn": [
+"h2",
+"http/1.1"
+]
+},
+"xhttpSettings": {
+"path": "/api/443/download/",
+"host": "fr.song69.fun",
+"mode": "auto",
+"extra": {
+"mode": "stream-one",
+"xmux": {
+"cMaxReuseTimes": 0,
+"maxConcurrency": "16-32",
+"hKeepAlivePeriod": 0,
+"hMaxRequestTimes": "600-900",
+"hMaxReusableSecs": "1800-3000"
+},
+"xPaddingBytes": "100-1000",
+"xPaddingHeader": "X-Cache",
+"xPaddingMethod": "tokenish"
+}
+}
+}
+},
+{
+"tag": "proxy-3",
+"protocol": "vless",
+"mux": {
+"enabled": false,
+"concurrency": -1,
+"xudpConcurrency": 8,
+"xudpProxyUDP443": ""
+},
+"settings": {
+"vnext": [
+{
+"address": "pl.song69.fun",
+"port": 8444,
+"users": [
+{
+"id": "92b79c22-f68b-4713-8b21-52f264cb92f5",
+"encryption": "none",
+"flow": "",
+"level": 8,
+"security": "auto"
+}
+]
+}
+]
+},
+"streamSettings": {
+"network": "xhttp",
+"security": "reality",
+"realitySettings": {
+"serverName": "pl1.song69.fun",
+"fingerprint": "firefox",
+"show": false,
+"publicKey": "NfjMIX4n7y4JjlX1v2G69ReU_iUm8dNkKJdJvEtXwDY",
+"shortId": "f473bdddee26cfc6"
+},
+"xhttpSettings": {
+"path": "/api/443/download/",
+"host": "pl.song69.fun",
+"mode": "packet-up",
+"extra": {
+"uplinkDataKey": "128",
+"xPaddingHeader": "X-Cache",
+"xPaddingMethod": "tokenish",
+"uplinkHTTPMethod": "GET",
+"uplinkDataPlacement": "header"
+}
+}
+}
+},
+{
+"tag": "proxy-4",
+"protocol": "vless",
+"settings": {
+"vnext": [
+{
+"address": "3633c37daa4e6400.tunvi.w-ert.org",
+"port": 40287,
+"users": [
+{
+"id": "23ab3d0a-7626-48d5-99b8-8446b0187734",
+"encryption": "mlkem768x25519plus.native.0rtt.g4zPsP8_Ju17nfVQ9cRaBqzWPbv0Ve4ELGpzE9yf8CA",
+"flow": "xtls-rprx-vision",
+"level": 8,
+"security": "auto"
+}
+]
+}
+]
+},
+"streamSettings": {
+"network": "tcp",
+"security": "tls",
+"tlsSettings": {
+"serverName": "ask.w-ert.org",
+"fingerprint": "chrome",
+"show": false
+}
+}
+},
+{
+"tag": "proxy-5",
+"protocol": "vless",
+"settings": {
+"vnext": [
+{
+"address": "cdndownloadlink.song69.fun",
+"port": 2087,
+"users": [
+{
+"id": "92b79c22-f68b-4713-8b21-52f264cb92f5",
+"encryption": "none",
+"flow": "xtls-rprx-vision",
+"level": 8,
+"security": "auto"
+}
+]
+}
+]
+},
+"streamSettings": {
+"network": "tcp",
+"security": "reality",
+"realitySettings": {
+"serverName": "cdndownloadlink.song69.fun",
+"fingerprint": "firefox",
+"show": false,
+"publicKey": "HRmmr0Ii4Tr9jPLwratvLhee3_VWFNK47T8AAo7kzww",
+"shortId": ""
+},
+"tcpSettings": {
+"header": {
+"type": "none"
+}
+}
+}
+},
+{
+"tag": "proxy-6",
+"protocol": "vless",
+"settings": {
+"vnext": [
+{
+"address": "fastlinkdownload.song69.fun",
+"port": 443,
+"users": [
+{
+"id": "92b79c22-f68b-4713-8b21-52f264cb92f5",
+"encryption": "none",
+"flow": "xtls-rprx-vision",
+"level": 8,
+"security": "auto"
+}
+]
+}
+]
+},
+"streamSettings": {
+"network": "tcp",
+"security": "reality",
+"realitySettings": {
+"serverName": "fastlinkdownload.song69.fun",
+"fingerprint": "chrome",
+"show": false,
+"publicKey": "HRmmr0Ii4Tr9jPLwratvLhee3_VWFNK47T8AAo7kzww",
+"shortId": ""
+},
+"tcpSettings": {
+"header": {
+"type": "none"
+}
+}
+}
+},
+{
+"tag": "proxy-7",
+"protocol": "vless",
+"mux": {
+"enabled": false,
+"concurrency": -1,
+"xudpConcurrency": 8,
+"xudpProxyUDP443": ""
+},
+"settings": {
+"vnext": [
+{
+"address": "188.114.98.0",
+"port": 443,
+"users": [
+{
+"id": "91ad30e9-ab06-4b4c-9fb9-1c2aa97d8b3a",
+"encryption": "none",
+"flow": "",
+"level": 8,
+"security": "auto"
+}
+]
+}
+]
+},
+"streamSettings": {
+"network": "ws",
+"security": "tls",
+"tlsSettings": {
+"serverName": "n04.jinggai.online",
+"fingerprint": "unsafe",
+"show": false,
+"alpn": [
+"http/1.1"
+]
+},
+"wsSettings": {
+"path": "/nvl-n04-ws/e0577fe8fd7c8823",
+"headers": {
+"Host": "n04.jinggai.online"
+}
+}
+}
+},
+{
+"tag": "proxy-8",
+"protocol": "vless",
+"mux": {
+"enabled": false,
+"concurrency": -1,
+"xudpConcurrency": 8,
+"xudpProxyUDP443": ""
+},
+"settings": {
+"vnext": [
+{
+"address": "36a466g.fi1.h1clayd.click",
+"port": 443,
+"users": [
+{
+"id": "9a0e84f8-4b58-477f-99da-5fac5a2e58e8",
+"encryption": "none",
+"flow": "",
+"level": 8,
+"security": "auto"
+}
+]
+}
+]
+},
+"streamSettings": {
+"network": "grpc",
+"security": "reality",
+"realitySettings": {
+"serverName": "36a466g.fi1.h1clayd.click",
+"fingerprint": "random",
+"show": false,
+"publicKey": "pAgrBKJCmuSJHIzYkEJTqsOBOVBK_DMtEqFPo-PaTkg",
+"shortId": "b3c9d0c6bdd114a6"
+},
+"grpcSettings": {
+"serviceName": "0adb9638509b"
+}
+}
+},
+{
+"tag": "block",
+"protocol": "blackhole"
+},
+{
+"tag": "direct",
+"protocol": "freedom"
+},
+{
+"tag": "dns-out",
+"protocol": "dns"
+}
+],
+"burstObservatory": {
+"pingConfig": {
+"timeout": "5s",
+"interval": "60s",
+"sampling": 3,
+"httpMethod": "HEAD",
+"destination": "https://www.gstatic.com/generate_204"
+},
+"subjectSelector": [
+"proxy",
+"proxy-2",
+"proxy-3",
+"proxy-4",
+"proxy-5",
+"proxy-6",
+"proxy-7",
+"proxy-8"
+]
+},
+"remarks": "🇪🇺 АВТО №1 ⚡"
+},
+{
+"log": {
+"access": "",
+"error": "",
+"loglevel": "warning"
+},
+"remarks": "🇩🇪 Германия №1",
+"inbounds": [
+{
+"listen": "0.0.0.0",
+"port": 10808,
+"protocol": "socks",
+"settings": {
+"auth": "noauth",
+"udp": true,
+"allowTransparent": false
+},
+"sniffing": {
+"enabled": true,
+"destOverride": [
+"http",
+"tls"
+],
+"routeOnly": false
+},
+"tag": "socks"
+},
+{
+"listen": "0.0.0.0",
+"port": 10809,
+"protocol": "http",
+"settings": {
+"auth": "noauth",
+"udp": true,
+"allowTransparent": false
+},
+"sniffing": {
+"enabled": true,
+"destOverride": [
+"http",
+"tls"
+],
+"routeOnly": false
+},
+"tag": "http"
+}
+],
+"outbounds": [
+{
+"tag": "proxy",
+"protocol": "vless",
+"mux": {
+"enabled": false,
+"concurrency": -1,
+"xudpConcurrency": 8,
+"xudpProxyUDP443": ""
+},
+"settings": {
+"vnext": [
+{
+"address": "36a466g.fi1.h1clayd.click",
+"port": 443,
+"users": [
+{
+"id": "9a0e84f8-4b58-477f-99da-5fac5a2e58e8",
+"encryption": "none",
+"flow": "",
+"level": 8,
+"security": "auto"
+}
+]
+}
+]
+},
+"streamSettings": {
+"network": "grpc",
+"security": "reality",
+"realitySettings": {
+"serverName": "36a466g.fi1.h1clayd.click",
+"fingerprint": "random",
+"show": false,
+"publicKey": "pAgrBKJCmuSJHIzYkEJTqsOBOVBK_DMtEqFPo-PaTkg",
+"shortId": "b3c9d0c6bdd114a6"
+},
+"grpcSettings": {
+"serviceName": "0adb9638509b"
+}
+}
+}
+],
+"dns": {
+"servers": [
+"1.1.1.1",
+"8.8.8.8"
+]
+},
+"routing": {
+"domainStrategy": "AsIs",
+"rules": []
+},
+"countryCode": "DE"
+},
+{
+"log": {
+"access": "",
+"error": "",
+"loglevel": "warning"
+},
+"remarks": "🇱🇹 Литва №1",
+"inbounds": [
+{
+"listen": "0.0.0.0",
+"port": 10808,
+"protocol": "socks",
+"settings": {
+"auth": "noauth",
+"udp": true,
+"allowTransparent": false
+},
+"sniffing": {
+"enabled": true,
+"destOverride": [
+"http",
+"tls"
+],
+"routeOnly": false
+},
+"tag": "socks"
+},
+{
+"listen": "0.0.0.0",
+"port": 10809,
+"protocol": "http",
+"settings": {
+"auth": "noauth",
+"udp": true,
+"allowTransparent": false
+},
+"sniffing": {
+"enabled": true,
+"destOverride": [
+"http",
+"tls"
+],
+"routeOnly": false
+},
+"tag": "http"
+}
+],
+"outbounds": [
+{
+"tag": "proxy",
+"protocol": "vless",
+"settings": {
+"vnext": [
+{
+"address": "cdndownloadlink.song69.fun",
+"port": 2087,
+"users": [
+{
+"id": "92b79c22-f68b-4713-8b21-52f264cb92f5",
+"encryption": "none",
+"flow": "xtls-rprx-vision",
+"level": 8,
+"security": "auto"
+}
+]
+}
+]
+},
+"streamSettings": {
+"network": "tcp",
+"security": "reality",
+"realitySettings": {
+"serverName": "cdndownloadlink.song69.fun",
+"fingerprint": "firefox",
+"show": false,
+"publicKey": "HRmmr0Ii4Tr9jPLwratvLhee3_VWFNK47T8AAo7kzww",
+"shortId": ""
+},
+"tcpSettings": {
+"header": {
+"type": "none"
+}
+}
+}
+}
+],
+"dns": {
+"servers": [
+"1.1.1.1",
+"8.8.8.8"
+]
+},
+"routing": {
+"domainStrategy": "AsIs",
+"rules": []
+},
+"countryCode": "LT"
+},
+{
+"log": {
+"access": "",
+"error": "",
+"loglevel": "warning"
+},
+"remarks": "🇳🇱 Нидерланды №1",
+"inbounds": [
+{
+"listen": "0.0.0.0",
+"port": 10808,
+"protocol": "socks",
+"settings": {
+"auth": "noauth",
+"udp": true,
+"allowTransparent": false
+},
+"sniffing": {
+"enabled": true,
+"destOverride": [
+"http",
+"tls"
+],
+"routeOnly": false
+},
+"tag": "socks"
+},
+{
+"listen": "0.0.0.0",
+"port": 10809,
+"protocol": "http",
+"settings": {
+"auth": "noauth",
+"udp": true,
+"allowTransparent": false
+},
+"sniffing": {
+"enabled": true,
+"destOverride": [
+"http",
+"tls"
+],
+"routeOnly": false
+},
+"tag": "http"
+}
+],
+"outbounds": [
+{
+"tag": "proxy",
+"protocol": "vless",
+"settings": {
+"vnext": [
+{
+"address": "3633c37daa4e6400.tunvi.w-ert.org",
+"port": 40287,
+"users": [
+{
+"id": "23ab3d0a-7626-48d5-99b8-8446b0187734",
+"encryption": "mlkem768x25519plus.native.0rtt.g4zPsP8_Ju17nfVQ9cRaBqzWPbv0Ve4ELGpzE9yf8CA",
+"flow": "xtls-rprx-vision",
+"level": 8,
+"security": "auto"
+}
+]
+}
+]
+},
+"streamSettings": {
+"network": "tcp",
+"security": "tls",
+"tlsSettings": {
+"serverName": "ask.w-ert.org",
+"fingerprint": "chrome",
+"show": false
+}
+}
+}
+],
+"dns": {
+"servers": [
+"1.1.1.1",
+"8.8.8.8"
+]
+},
+"routing": {
+"domainStrategy": "AsIs",
+"rules": []
+},
+"countryCode": "NL"
+},
+{
+"log": {
+"access": "",
+"error": "",
+"loglevel": "warning"
+},
+"remarks": "🇵🇱 Польша №1",
+"inbounds": [
+{
+"listen": "0.0.0.0",
+"port": 10808,
+"protocol": "socks",
+"settings": {
+"auth": "noauth",
+"udp": true,
+"allowTransparent": false
+},
+"sniffing": {
+"enabled": true,
+"destOverride": [
+"http",
+"tls"
+],
+"routeOnly": false
+},
+"tag": "socks"
+},
+{
+"listen": "0.0.0.0",
+"port": 10809,
+"protocol": "http",
+"settings": {
+"auth": "noauth",
+"udp": true,
+"allowTransparent": false
+},
+"sniffing": {
+"enabled": true,
+"destOverride": [
+"http",
+"tls"
+],
+"routeOnly": false
+},
+"tag": "http"
+}
+],
+"outbounds": [
+{
+"tag": "proxy",
+"protocol": "vless",
+"mux": {
+"enabled": false,
+"concurrency": -1,
+"xudpConcurrency": 8,
+"xudpProxyUDP443": ""
+},
+"settings": {
+"vnext": [
+{
+"address": "pl.song69.fun",
+"port": 8444,
+"users": [
+{
+"id": "92b79c22-f68b-4713-8b21-52f264cb92f5",
+"encryption": "none",
+"flow": "",
+"level": 8,
+"security": "auto"
+}
+]
+}
+]
+},
+"streamSettings": {
+"network": "xhttp",
+"security": "reality",
+"realitySettings": {
+"serverName": "pl1.song69.fun",
+"fingerprint": "firefox",
+"show": false,
+"publicKey": "NfjMIX4n7y4JjlX1v2G69ReU_iUm8dNkKJdJvEtXwDY",
+"shortId": "f473bdddee26cfc6"
+},
+"xhttpSettings": {
+"path": "/api/443/download/",
+"host": "pl.song69.fun",
+"mode": "packet-up",
+"extra": {
+"uplinkDataKey": "128",
+"xPaddingHeader": "X-Cache",
+"xPaddingMethod": "tokenish",
+"uplinkHTTPMethod": "GET",
+"uplinkDataPlacement": "header"
+}
+}
+}
+}
+],
+"dns": {
+"servers": [
+"1.1.1.1",
+"8.8.8.8"
+]
+},
+"routing": {
+"domainStrategy": "AsIs",
+"rules": []
+},
+"countryCode": "PL"
+},
+{
+"log": {
+"access": "",
+"error": "",
+"loglevel": "warning"
+},
+"remarks": "🇺🇸 США №1",
+"inbounds": [
+{
+"listen": "0.0.0.0",
+"port": 10808,
+"protocol": "socks",
+"settings": {
+"auth": "noauth",
+"udp": true,
+"allowTransparent": false
+},
+"sniffing": {
+"enabled": true,
+"destOverride": [
+"http",
+"tls"
+],
+"routeOnly": false
+},
+"tag": "socks"
+},
+{
+"listen": "0.0.0.0",
+"port": 10809,
+"protocol": "http",
+"settings": {
+"auth": "noauth",
+"udp": true,
+"allowTransparent": false
+},
+"sniffing": {
+"enabled": true,
+"destOverride": [
+"http",
+"tls"
+],
+"routeOnly": false
+},
+"tag": "http"
+}
+],
+"outbounds": [
+{
+"tag": "proxy",
+"protocol": "vless",
+"mux": {
+"enabled": false,
+"concurrency": -1,
+"xudpConcurrency": 8,
+"xudpProxyUDP443": ""
+},
+"settings": {
+"vnext": [
+{
+"address": "www.codex2api.com",
+"port": 443,
+"users": [
+{
+"id": "30e52776-55ac-3cb4-8d36-e2910f07e2c3",
+"encryption": "none",
+"flow": "",
+"level": 8,
+"security": "auto"
+}
+]
+}
+]
+},
+"streamSettings": {
+"network": "xhttp",
+"security": "tls",
+"tlsSettings": {
+"serverName": "7fe50937s2316.fuhuovps.xyz",
+"fingerprint": "chrome",
+"show": false,
+"alpn": [
+"h2",
+"http/1.1"
+]
+},
+"xhttpSettings": {
+"path": "/b34b667489c867378f1544355647ecfa",
+"host": "7fe50937s2316.fuhuovps.xyz",
+"mode": "auto"
+}
+}
+}
+],
+"dns": {
+"servers": [
+"1.1.1.1",
+"8.8.8.8"
+]
+},
+"routing": {
+"domainStrategy": "AsIs",
+"rules": []
+},
+"countryCode": "US"
+},
+{
+"log": {
+"access": "",
+"error": "",
+"loglevel": "warning"
+},
+"remarks": "🇹🇼 Тайвань №1",
+"inbounds": [
+{
+"listen": "0.0.0.0",
+"port": 10808,
+"protocol": "socks",
+"settings": {
+"auth": "noauth",
+"udp": true,
+"allowTransparent": false
+},
+"sniffing": {
+"enabled": true,
+"destOverride": [
+"http",
+"tls"
+],
+"routeOnly": false
+},
+"tag": "socks"
+},
+{
+"listen": "0.0.0.0",
+"port": 10809,
+"protocol": "http",
+"settings": {
+"auth": "noauth",
+"udp": true,
+"allowTransparent": false
+},
+"sniffing": {
+"enabled": true,
+"destOverride": [
+"http",
+"tls"
+],
+"routeOnly": false
+},
+"tag": "http"
+}
+],
+"outbounds": [
+{
+"tag": "proxy",
+"protocol": "vless",
+"mux": {
+"enabled": false,
+"concurrency": -1,
+"xudpConcurrency": 8,
+"xudpProxyUDP443": ""
+},
+"settings": {
+"vnext": [
+{
+"address": "188.114.98.0",
+"port": 443,
+"users": [
+{
+"id": "91ad30e9-ab06-4b4c-9fb9-1c2aa97d8b3a",
+"encryption": "none",
+"flow": "",
+"level": 8,
+"security": "auto"
+}
+]
+}
+]
+},
+"streamSettings": {
+"network": "ws",
+"security": "tls",
+"tlsSettings": {
+"serverName": "n04.jinggai.online",
+"fingerprint": "unsafe",
+"show": false,
+"alpn": [
+"http/1.1"
+]
+},
+"wsSettings": {
+"path": "/nvl-n04-ws/e0577fe8fd7c8823",
+"headers": {
+"Host": "n04.jinggai.online"
+}
+}
+}
+}
+],
+"dns": {
+"servers": [
+"1.1.1.1",
+"8.8.8.8"
+]
+},
+"routing": {
+"domainStrategy": "AsIs",
+"rules": []
+},
+"countryCode": "TW"
+},
+{
+"log": {
+"access": "",
+"error": "",
+"loglevel": "warning"
+},
+"remarks": "🇫🇷 Франция №1",
+"inbounds": [
+{
+"listen": "0.0.0.0",
+"port": 10808,
+"protocol": "socks",
+"settings": {
+"auth": "noauth",
+"udp": true,
+"allowTransparent": false
+},
+"sniffing": {
+"enabled": true,
+"destOverride": [
+"http",
+"tls"
+],
+"routeOnly": false
+},
+"tag": "socks"
+},
+{
+"listen": "0.0.0.0",
+"port": 10809,
+"protocol": "http",
+"settings": {
+"auth": "noauth",
+"udp": true,
+"allowTransparent": false
+},
+"sniffing": {
+"enabled": true,
+"destOverride": [
+"http",
+"tls"
+],
+"routeOnly": false
+},
+"tag": "http"
+}
+],
+"outbounds": [
+{
+"tag": "proxy",
+"protocol": "vless",
+"mux": {
+"enabled": false,
+"concurrency": -1,
+"xudpConcurrency": 8,
+"xudpProxyUDP443": ""
+},
+"settings": {
+"vnext": [
+{
+"address": "fr.song69.fun",
+"port": 443,
+"users": [
+{
+"id": "92b79c22-f68b-4713-8b21-52f264cb92f5",
+"encryption": "none",
+"flow": "",
+"level": 8,
+"security": "auto"
+}
+]
+}
+]
+},
+"streamSettings": {
+"network": "xhttp",
+"security": "tls",
+"tlsSettings": {
+"serverName": "fr.song69.fun",
+"fingerprint": "edge",
+"show": false,
+"alpn": [
+"h2",
+"http/1.1"
+]
+},
+"xhttpSettings": {
+"path": "/api/443/download/",
+"host": "fr.song69.fun",
+"mode": "auto",
+"extra": {
+"mode": "stream-one",
+"xmux": {
+"cMaxReuseTimes": 0,
+"maxConcurrency": "16-32",
+"hKeepAlivePeriod": 0,
+"hMaxRequestTimes": "600-900",
+"hMaxReusableSecs": "1800-3000"
+},
+"xPaddingBytes": "100-1000",
+"xPaddingHeader": "X-Cache",
+"xPaddingMethod": "tokenish"
+}
+}
+}
+}
+],
+"dns": {
+"servers": [
+"1.1.1.1",
+"8.8.8.8"
+]
+},
+"routing": {
+"domainStrategy": "AsIs",
+"rules": []
+},
+"countryCode": "FR"
+},
+{
+"log": {
+"access": "",
+"error": "",
+"loglevel": "warning"
+},
+"remarks": "🇫🇷 Франция №2",
+"inbounds": [
+{
+"listen": "0.0.0.0",
+"port": 10808,
+"protocol": "socks",
+"settings": {
+"auth": "noauth",
+"udp": true,
+"allowTransparent": false
+},
+"sniffing": {
+"enabled": true,
+"destOverride": [
+"http",
+"tls"
+],
+"routeOnly": false
+},
+"tag": "socks"
+},
+{
+"listen": "0.0.0.0",
+"port": 10809,
+"protocol": "http",
+"settings": {
+"auth": "noauth",
+"udp": true,
+"allowTransparent": false
+},
+"sniffing": {
+"enabled": true,
+"destOverride": [
+"http",
+"tls"
+],
+"routeOnly": false
+},
+"tag": "http"
+}
+],
+"outbounds": [
+{
+"tag": "proxy",
+"protocol": "vless",
+"settings": {
+"vnext": [
+{
+"address": "fastlinkdownload.song69.fun",
+"port": 443,
+"users": [
+{
+"id": "92b79c22-f68b-4713-8b21-52f264cb92f5",
+"encryption": "none",
+"flow": "xtls-rprx-vision",
+"level": 8,
+"security": "auto"
+}
+]
+}
+]
+},
+"streamSettings": {
+"network": "tcp",
+"security": "reality",
+"realitySettings": {
+"serverName": "fastlinkdownload.song69.fun",
+"fingerprint": "chrome",
+"show": false,
+"publicKey": "HRmmr0Ii4Tr9jPLwratvLhee3_VWFNK47T8AAo7kzww",
+"shortId": ""
+},
+"tcpSettings": {
+"header": {
+"type": "none"
+}
+}
+}
+}
+],
+"dns": {
+"servers": [
+"1.1.1.1",
+"8.8.8.8"
+]
+},
+"routing": {
+"domainStrategy": "AsIs",
+"rules": []
+},
+"countryCode": "FR"
+},
+{
+"log": {
+"access": "",
+"error": "",
+"loglevel": "warning"
+},
+"remarks": "🇩🇪 LTE | Обход №1",
+"inbounds": [
+{
+"listen": "0.0.0.0",
+"port": 10808,
+"protocol": "socks",
+"settings": {
+"auth": "noauth",
+"udp": true,
+"allowTransparent": false
+},
+"sniffing": {
+"enabled": true,
+"destOverride": [
+"http",
+"tls"
+],
+"routeOnly": false
+},
+"tag": "socks"
+},
+{
+"listen": "0.0.0.0",
+"port": 10809,
+"protocol": "http",
+"settings": {
+"auth": "noauth",
+"udp": true,
+"allowTransparent": false
+},
+"sniffing": {
+"enabled": true,
+"destOverride": [
+"http",
+"tls"
+],
+"routeOnly": false
+},
+"tag": "http"
+}
+],
+"outbounds": [
+{
+"tag": "proxy",
+"protocol": "vless",
+"settings": {
+"vnext": [
+{
+"address": "mark-rubick.xrent.cloud",
+"port": 10448,
+"users": [
+{
+"id": "c515cd7e-f687-4530-a8fb-5e3f4fc2732c",
+"encryption": "none",
+"flow": "xtls-rprx-vision",
+"level": 8,
+"security": "auto"
+}
+]
+}
+]
+},
+"streamSettings": {
+"network": "tcp",
+"security": "reality",
+"realitySettings": {
+"serverName": "edge-node08.ethervds.com",
+"fingerprint": "firefox",
+"show": false,
+"publicKey": "SJEbErtlRxBIwqIJYbttuF59vN6jbGt7SX2sRvZRS0Q",
+"shortId": "d1520ca3e02cda34"
+},
+"tcpSettings": {
+"header": {
+"type": "none"
+}
+}
+}
+}
+],
+"dns": {
+"servers": [
+"1.1.1.1",
+"8.8.8.8"
+]
+},
+"routing": {
+"domainStrategy": "AsIs",
+"rules": []
+},
+"countryCode": "DE"
+}
+]
